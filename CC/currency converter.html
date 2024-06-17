@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Converter</title>
+  <link rel="stylesheet" href="design.css">
+</head>
+<body>
+  <div class="converter">
+    <h1>Currency Converter</h1>
+    <div class="input-group">
+      <label for="fromCurrency">From:</label>
+      <select id="fromCurrency">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <!-- Add more currencies here -->
+      </select>
+      <input type="number" id="fromAmount" min="0">
+    </div>
+    <div class="input-group">
+      <label for="toCurrency">To:</label>
+      <select id="toCurrency">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <!-- Add more currencies here -->
+      </select>
+      <input type="number" id="toAmount" min="0" readonly>
+    </div>
+    <button onclick="convertCurrency()">Convert</button>
+  </div>
+
+  <script>
+    function convertCurrency() {
+  var fromCurrency = document.getElementById('fromCurrency').value;
+  var toCurrency = document.getElementById('toCurrency').value;
+  var fromAmount = parseFloat(document.getElementById('fromAmount').value);
+
+  // Replace with real-time currency conversion API call
+  // For demonstration purposes, I'm just converting USD to EUR and GBP with fixed rates
+  var conversionRates = {
+    USD: { EUR: 0.85, GBP: 0.75 },
+    EUR: { USD: 1.18, GBP: 0.88 },
+    GBP: { USD: 1.33, EUR: 1.14 }
+  };
+
+  if (fromCurrency === toCurrency) {
+    document.getElementById('toAmount').value = fromAmount;
+  } else {
+    var rate = conversionRates[fromCurrency][toCurrency];
+    if (rate) {
+      var toAmount = fromAmount * rate;
+      document.getElementById('toAmount').value = toAmount.toFixed(2);
+    } else {
+      document.getElementById('toAmount').value = "Invalid Conversion";
+    }
+  }
+}
+
+  </script>
+</body>
+</html>
